@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
       .then((userCredential) => {
         const user = userCredential.user
         authUser.value = user
-        router.push({name: 'admin-propiedades'})        
+        router.push({name: 'admin-usuarios'})        
       })
       .catch(error => {
         errorMsg.value = errorCodes[error.code]

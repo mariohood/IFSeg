@@ -26,9 +26,9 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
-          path: "/admin/nueva",
-          name: "nueva-propiedad",
-          component: () => import("../views/admin/NuevaPropiedadView.vue"),
+          path: "/admin/novo",
+          name: "novo-usuario",
+          component: () => import("../views/admin/NovoUsuarioView.vue"),
           meta: { requiresAuth: true },
         },
         {

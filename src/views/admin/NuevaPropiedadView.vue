@@ -76,7 +76,7 @@
 
       <v-text-field
         class="mb-5"
-        label="Precio"
+        label="Ambiente"
         v-model="precio.value.value"
         :error-messages="precio.errorMessage.value"
       /> 

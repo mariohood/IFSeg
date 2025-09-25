@@ -33,13 +33,13 @@ const imagen = useField("imagen");
 const descricao = useField("descricao");
 
 const submit = handleSubmit(async (values) => {
-  const { imagen, ...propiedad } = values;
+  const { imagen, ...usuario } = values;
 
-  const docRef = await addDoc(collection(db, "propiedades"), {
-    ...propiedad,
+  const docRef = await addDoc(collection(db, "usuarios"), {
+    ...usuario,
   });
   if (docRef.id) {
-    router.push({ name: "admin-propiedades" });
+    router.push({ name: "admin-usuarios" });
   }
 });
 </script>

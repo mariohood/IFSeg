@@ -1,38 +1,38 @@
 export const validationSchema = {
   nome(value) {
     if (value?.length >= 3) return true;
-    return "O nome do usuário é obligatorio o muy corto";
+    return "O nome do usuário é obligatorio o muito curto";
   },
   sobrenome(value) {
     if (value?.length >= 3) return true;
-    return "O sobrenome do usuário é obligatorio o muy corto";
+    return "O sobrenome do usuário é obligatorio o muito curto";
   },
   matricula(value) {
     /*
-        ^ - Representa el inicio de la cadena.
+        ^ - Representa o inicio da cadena.
         [0-9]+ - Representa cualquier número del 0 al 9. El + indica que debe haber al menos un dígito, pero puede haber más.
-        $ - Representa el final de la cadena.
+        $ - Representa o final da cadena.
     */
     if (/^[0-9]+$/.test(value)) return true;
     return "A matricula só podem ser números";
   },
   curso(value) {
     if (value) return true;
-    return "Seleccione um curso";
+    return "Selecione um curso";
   },
   ambiente(value) {
     if (value) return true;
-    return "Seleccione um ambiente";
+    return "Selecione um ambiente";
   },
-  descripcion(value) {
+  descricao(value) {
     if (value) return true;
-    return "Agrega una Descripción";
+    return "Agrega uma descrição";
   },
 };
 
 export const imageSchema = {
   imagen(value) {
     if (value) return true;
-    return "La Imagen es Obligatoria";
+    return "A imagen é obrigatoria";
   },
 };

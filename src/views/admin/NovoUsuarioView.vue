@@ -6,14 +6,13 @@ import { useRouter } from "vue-router";
 import { validationSchema, imageSchema } from "@/validation/usuarioSchema";
 
 const cursos = [
-  "",
   "Sistemas para Internet",
   "Gestião Emprsarial",
   "Técnico em Administração",
   "Técnico em Contabilidade",
   "Funcionario",
 ];
-const locais = ["", "POALab", "Lab Robotica"];
+const locais = ["POALab", "Lab Robotica"];
 
 const router = useRouter();
 const db = useFirestore();
@@ -31,7 +30,7 @@ const matricula = useField("matricula");
 const curso = useField("curso");
 const ambiente = useField("ambiente");
 const imagen = useField("imagen");
-const descripcion = useField("descripcion");
+const descricao = useField("descricao");
 
 const submit = handleSubmit(async (values) => {
   const { imagen, ...propiedad } = values;
@@ -68,7 +67,7 @@ const submit = handleSubmit(async (values) => {
       />
       <v-text-field
         class="mb-5"
-        label="Matricula"
+        label="Matrícula"
         v-model="matricula.value.value"
         :error-messages="matricula.errorMessage.value"
       />
@@ -102,9 +101,9 @@ const submit = handleSubmit(async (values) => {
       />
       <v-textarea
         class="mb-5"
-        label="Descripción"
-        v-model="descripcion.value.value"
-        :error-messages="descripcion.errorMessage.value"
+        label="Descrição"
+        v-model="descricao.value.value"
+        :error-messages="descricao.errorMessage.value"
       >
       </v-textarea>
 

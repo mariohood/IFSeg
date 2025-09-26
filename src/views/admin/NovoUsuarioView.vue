@@ -13,9 +13,9 @@ const cursos = [
   "Técnico em Contabilidade",
   "Funcionario",
 ];
-const locais = ["POALab", "Lab Robotica"];
+const locais = ["POALab", "Lab Robótica"];
 
-const { uploadImage } = useImage();
+const { url, uploadImage, image } = useImage();
 
 const router = useRouter();
 const db = useFirestore();
@@ -40,6 +40,7 @@ const submit = handleSubmit(async (values) => {
 
   const docRef = await addDoc(collection(db, "usuarios"), {
     ...usuario,
+    image: url.value,
   });
   if (docRef.id) {
     router.push({ name: "admin-usuarios" });
@@ -104,6 +105,11 @@ const submit = handleSubmit(async (values) => {
         :error-messages="imagen.errorMessage.value"
         @change="uploadImage"
       />
+
+      <div v-if="image" class="my-5">
+        <p class="font-weight-bold">Imagem do usuário:</p>
+        <img class="w-25" :src="image" />
+      </div>
 
       <v-textarea
         class="mb-5"

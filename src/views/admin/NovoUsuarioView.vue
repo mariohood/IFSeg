@@ -4,15 +4,18 @@ import { collection, addDoc } from "firebase/firestore";
 import { useFirestore } from "vuefire";
 import { useRouter } from "vue-router";
 import { validationSchema, imageSchema } from "@/validation/usuarioSchema";
+import useImage from "@/composables/useImage";
 
 const cursos = [
   "Sistemas para Internet",
-  "Gestião Emprsarial",
+  "Gestão Empresarial",
   "Técnico em Administração",
   "Técnico em Contabilidade",
   "Funcionario",
 ];
 const locais = ["POALab", "Lab Robotica"];
+
+const { uploadImage } = useImage();
 
 const router = useRouter();
 const db = useFirestore();
@@ -49,7 +52,7 @@ const submit = handleSubmit(async (values) => {
     <v-card-title class="text-h4 font-weight-bold" tag="h3">
       Novo usuário
     </v-card-title>
-    <v-card-subtitle class="text-h5 py-3">
+    <v-card-subtitle class="text-h5 py-2">
       Cria um novo usuário prechendo o siguente formulário
     </v-card-subtitle>
     <v-form class="mt-10">
@@ -91,6 +94,7 @@ const submit = handleSubmit(async (values) => {
           />
         </v-col>
       </v-row>
+
       <v-file-input
         accept="image/jpeg"
         label="Fotografia"
@@ -98,7 +102,9 @@ const submit = handleSubmit(async (values) => {
         class="mb-5"
         v-model="imagen.value.value"
         :error-messages="imagen.errorMessage.value"
+        @change="uploadImage"
       />
+
       <v-textarea
         class="mb-5"
         label="Descrição"

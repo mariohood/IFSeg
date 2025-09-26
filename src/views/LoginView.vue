@@ -1,36 +1,25 @@
 <script setup>
-  import { useForm, useField } from 'vee-validate'  
-  import { loginSchema as validationSchema } from '../validation/loginSchema'
-  import { useAuthStore } from '../stores/auth'
+import { useForm, useField } from "vee-validate";
+import { loginSchema as validationSchema } from "../validation/loginSchema";
+import { useAuthStore } from "../stores/auth";
 
-  const { handleSubmit } = useForm({ validationSchema })
-  const auth = useAuthStore()
-  
+const { handleSubmit } = useForm({ validationSchema });
+const auth = useAuthStore();
 
-  const email = useField('email')
-  const password = useField('password')
+const email = useField("email");
+const password = useField("password");
 
-  const submit = handleSubmit((values) => {
-    auth.login(values)        
-  })
-
+const submit = handleSubmit((values) => {
+  auth.login(values);
+});
 </script>
 
 <template>
-  <v-card
-    flat
-    max-width="600"
-    class="mx-auto my-10"
-  >
-    <v-card-title
-      class="text-h4 font-weight-bold"
-      tag="h3"
-    >
+  <v-card flat max-width="600" class="mx-auto my-10">
+    <v-card-title class="text-h4 font-weight-bold" tag="h3">
       Iniciar Sessão
     </v-card-title>
-    <v-card-subtitle
-      class="text-h5"
-    >
+    <v-card-subtitle class="text-h5">
       Inicia Sessão com tua conta
     </v-card-subtitle>
 
@@ -38,7 +27,7 @@
       v-if="auth.hasError"
       class="my-5"
       type="error"
-      :title="auth.errorMsg"   
+      :title="auth.errorMsg"
     ></v-alert>
 
     <v-form class="mt-5">
@@ -60,16 +49,9 @@
         :error-messages="password.errorMessage.value"
       />
 
-      <v-btn
-        block
-        color="pink-accent-3"
-        @click="submit"
-      >
-        Iniciar sessão 
+      <v-btn block color="pink-accent-3" @click="submit">
+        Iniciar sessão
       </v-btn>
-        
-      
     </v-form>
-
   </v-card>
 </template>

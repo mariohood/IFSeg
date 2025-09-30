@@ -4,27 +4,29 @@ import { useFirestore, useDocument } from "vuefire";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { useField, useForm } from "vee-validate";
-import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 import useImage from "@/composables/useImage";
-import useLocationMap from "@/composables/useLocationMap";
-import { validationSchema } from "@/validation/propiedadSchema";
+import { validationSchema } from "@/validation/usuarioSchema";
 
-const items = [1, 2, 3, 4, 5];
+const cursos = [
+  "Sistemas para Internet",
+  "Gestão Empresarial",
+  "Técnico em Administração",
+  "Técnico em Contabilidade",
+  "Funcionario",
+];
+const locais = ["POALab", "Lab Robótica"];
 
 const { url, uploadImage, image } = useImage();
-const { zoom, center, pin } = useLocationMap();
 
 const { handleSubmit } = useForm({ validationSchema });
 
-const titulo = useField("titulo");
+const nome = useField("nome");
+const sobrenome = useField("sobrenome");
+const matricula = useField("matricula");
+const curso = useField("curso");
+const ambiente = useField("ambiente");
 const imagen = useField("imagen");
-const precio = useField("precio");
-const habitaciones = useField("habitaciones");
-const wc = useField("wc");
-const estacionamiento = useField("estacionamiento");
-const descripcion = useField("descripcion");
-const alberca = useField("alberca");
+const descricao = useField("descricao");
 
 const route = useRoute();
 
@@ -33,103 +35,79 @@ const db = useFirestore();
 const docRef = doc(db, "usuarios", route.params.id);
 const usuario = useDocument(docRef);
 
-console.log(usuario);
+const submit = handleSubmit((values) => {});
 </script>
 
 <template>
   <v-card max-width="800" flat class="mx-auto my-10">
     <v-card-title class="mt-5">
-      <h1 class="text-h4 font-weight-bold">Editar Propiedad</h1>
+      <h1 class="text-h4 font-weight-bold">Editar Usuário</h1>
     </v-card-title>
     <v-card-subtitle>
-      <p class="text-h5">Edita los detalles de la propiedad</p>
+      <p class="text-h5">Atualizar informação do usuário</p>
     </v-card-subtitle>
 
     <v-form class="mt-10">
       <v-text-field
-        v-model="titulo.value.value"
-        :error-messages="titulo.errorMessage.value"
-        label="Titulo"
         class="mb-5"
-      ></v-text-field>
+        label="Nome"
+        v-model="nome.value.value"
+        :error-messages="nome.errorMessage.value"
+      />
+      <v-text-field
+        class="mb-5"
+        label="Sobrenome"
+        v-model="sobrenome.value.value"
+        :error-messages="sobrenome.errorMessage.value"
+      />
+      <v-text-field
+        class="mb-5"
+        label="Matrícula"
+        v-model="matricula.value.value"
+        :error-messages="matricula.errorMessage.value"
+      />
+      <v-row>
+        <v-col>
+          <v-select
+            class="mb-5"
+            label="Curso"
+            :items="cursos"
+            v-model="curso.value.value"
+            :error-messages="curso.errorMessage.value"
+          />
+        </v-col>
+        <v-col>
+          <v-select
+            class="mb-5"
+            label="Ambiente"
+            :items="locais"
+            v-model="ambiente.value.value"
+            :error-messages="ambiente.errorMessage.value"
+          />
+        </v-col>
+      </v-row>
 
       <v-file-input
+        accept="image/jpeg"
+        label="Fotografia"
+        prepend-icon="mdi-camera"
+        class="mb-5"
         v-model="imagen.value.value"
         :error-messages="imagen.errorMessage.value"
-        accept="image/jpeg"
-        prepend-icon="mdi-camera"
-        label="Fotografía"
-        class="mb-5"
         @change="uploadImage"
-      ></v-file-input>
+      />
 
       <div class="my-5">
         <p class="font-weight-bold">Imagen Actual:</p>
       </div>
 
-      <v-text-field
-        v-model="precio.value.value"
-        :error-messages="precio.errorMessage.value"
-        label="Precio"
-        class="mb-5"
-      ></v-text-field>
-
-      <v-row>
-        <v-col cols="12" md="4">
-          <v-select
-            label="Habitaciones"
-            class="mb-5"
-            :items="items"
-            v-model="habitaciones.value.value"
-            :error-messages="habitaciones.errorMessage.value"
-          />
-        </v-col>
-
-        <v-col cols="12" md="4">
-          <v-select
-            label="WC"
-            class="mb-5"
-            :items="items"
-            v-model="wc.value.value"
-            :error-messages="wc.errorMessage.value"
-          />
-        </v-col>
-
-        <v-col cols="12" md="4">
-          <v-select
-            label="Lugares Estacionamiento"
-            class="mb-5"
-            :items="items"
-            v-model="estacionamiento.value.value"
-            :error-messages="estacionamiento.errorMessage.value"
-          />
-        </v-col>
-      </v-row>
-
       <v-textarea
-        v-model="descripcion.value.value"
-        :error-messages="descripcion.errorMessage.value"
-        label="Descripción"
         class="mb-5"
-      ></v-textarea>
-
-      <v-checkbox v-model="alberca.value.value" label="Alberca"></v-checkbox>
-
-      <h2 class="font-weight-bold text-center my-5">Ubicación</h2>
-      <div class="pb-10">
-        <div style="height: 600px">
-          <LMap
-            v-model:zoom="zoom"
-            :center="center"
-            :use-global-leaflet="false"
-          >
-            <LMarker :lat-lng="center" draggable @moveend="pin" />
-            <LTileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            ></LTileLayer>
-          </LMap>
-        </div>
-      </div>
+        label="Descrição"
+        v-model="descricao.value.value"
+        :error-messages="descricao.errorMessage.value"
+      >
+      </v-textarea>
 
       <v-btn color="pink-accent-3" block @click="submit">
         Guardar Cambios

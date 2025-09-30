@@ -109,6 +109,8 @@ const submit = handleSubmit((values) => {});
 
       <div class="my-5">
         <p class="font-weight-bold">Imagen Actual:</p>
+        <img v-if="image" class="w-25" :src="image"></img>
+        <img v-else class="w-25" :src="usuario?.image"></img>
       </div>
 
       <v-textarea

@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from "vue";
 import { useRoute } from "vue-router";
 import { useFirestore, useDocument } from "vuefire";
 import { doc, updateDoc } from "firebase/firestore";
@@ -34,6 +35,15 @@ const route = useRoute();
 const db = useFirestore();
 const docRef = doc(db, "usuarios", route.params.id);
 const usuario = useDocument(docRef);
+
+watch(usuario, (usuario) => {
+  nome.value.value = usuario.nome;
+  sobrenome.value.value = usuario.sobrenome;
+  matricula.value.value = usuario.matricula;
+  curso.value.value = usuario.curso;
+  ambiente.value.value = usuario.ambiente;
+  descricao.value.value = usuario.descricao;
+});
 
 const submit = handleSubmit((values) => {});
 </script>

@@ -33,8 +33,8 @@ const router = createRouter({
         },
         {
           path: "/admin/editar/:id",
-          name: "editar-propiedad",
-          component: () => import("../views/admin/EditarPropiedadView.vue"),
+          name: "editar-usuario",
+          component: () => import("../views/admin/EditarUsuarioView.vue"),
           meta: { requiresAuth: true },
         },
       ],

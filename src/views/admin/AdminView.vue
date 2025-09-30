@@ -23,7 +23,14 @@ const { usuariosCollection } = useUsuarios();
         >
         <v-list-item-subtitle>{{ usuario.curso }}</v-list-item-subtitle>
         <template v-slot:append>
-          <v-btn color="info" flat class="mr-2"> Editar </v-btn>
+          <v-btn
+            color="info"
+            flat
+            class="mr-2"
+            :to="{ name: 'editar-usuario', params: { id: usuario.id } }"
+          >
+            Editar
+          </v-btn>
           <v-btn color="red-darken-3" flat> Eliminar </v-btn>
         </template>
       </v-list-item>

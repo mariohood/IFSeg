@@ -31,7 +31,7 @@ const { usuariosCollection } = useUsuarios();
           >
             Editar
           </v-btn>
-          <v-btn color="red-darken-3" flat> Eliminar </v-btn>
+          <v-btn color="red-darken-3" flat> Excluir </v-btn>
         </template>
       </v-list-item>
     </v-list>

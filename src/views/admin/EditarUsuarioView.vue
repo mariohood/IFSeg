@@ -1,6 +1,6 @@
 <script setup>
 import { watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useFirestore, useDocument } from "vuefire";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -30,6 +30,7 @@ const imagen = useField("imagen");
 const descricao = useField("descricao");
 
 const route = useRoute();
+const router = useRouter();
 
 // obter o usuário a editar
 const db = useFirestore();
@@ -45,7 +46,20 @@ watch(usuario, (usuario) => {
   descricao.value.value = usuario.descricao;
 });
 
-const submit = handleSubmit((values) => {});
+const submit = handleSubmit(async values => {
+  const {imagen, ...usuario} = values
+  if(image.value){
+    console.log('ai uma imagem nova')
+  }
+  else{
+    const data = { 
+      ...usuario
+    }
+    await updateDoc(docRef, data)
+  }
+  router.push({name:'admin-usuarios'})
+
+});
 </script>
 
 <template>
@@ -121,7 +135,7 @@ const submit = handleSubmit((values) => {});
       >
       </v-textarea>
 
-      <v-btn color="pink-accent-3" block @click="submit">
+      <v-btn color="blue-accent-3" block @click="submit">
         Guardar Cambios
       </v-btn>
     </v-form>

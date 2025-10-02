@@ -49,7 +49,7 @@ const submit = handleSubmit((values) => {
         :error-messages="password.errorMessage.value"
       />
 
-      <v-btn block color="pink-accent-3" @click="submit">
+      <v-btn block color="blue-accent-3" @click="submit">
         Iniciar sessão
       </v-btn>
     </v-form>

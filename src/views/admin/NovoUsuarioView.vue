@@ -119,7 +119,7 @@ const submit = handleSubmit(async (values) => {
       >
       </v-textarea>
 
-      <v-btn color="pink-accent-3" block @click="submit">
+      <v-btn color="blue-accent-3" block @click="submit">
         Agregar Usuário
       </v-btn>
     </v-form>

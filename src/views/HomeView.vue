@@ -11,7 +11,7 @@ const { usuariosCollection } = useUsuarios();
   <v-card flat class="py-10">
     <v-row>
       <usuario
-        v-for="Usuario in usuariosCollection"
+        v-for="usuario in usuariosCollection"
         :key="usuariosCollection.id"
         :usuario="usuario"
       />

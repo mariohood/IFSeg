@@ -25,6 +25,7 @@ const nome = useField("nome");
 const sobrenome = useField("sobrenome");
 const matricula = useField("matricula");
 const curso = useField("curso");
+const cartao = useField("cartao");
 const ambiente = useField("ambiente");
 const imagen = useField("imagen");
 const descricao = useField("descricao");
@@ -41,6 +42,7 @@ watch(usuario, (usuario) => {
   nome.value.value = usuario.nome;
   sobrenome.value.value = usuario.sobrenome;
   matricula.value.value = usuario.matricula;
+  cartao.value.value = usuario.cartao;
   curso.value.value = usuario.curso;
   ambiente.value.value = usuario.ambiente;
   descricao.value.value = usuario.descricao;
@@ -89,6 +91,12 @@ const submit = handleSubmit(async values => {
         label="Matrícula"
         v-model="matricula.value.value"
         :error-messages="matricula.errorMessage.value"
+      />
+      <v-text-field
+        class="mb-5"
+        label="Cartão"
+        v-model="cartao.value.value"
+        :error-messages="cartao.errorMessage.value"
       />
       <v-row>
         <v-col>

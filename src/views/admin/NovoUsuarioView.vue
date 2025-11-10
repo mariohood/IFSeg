@@ -30,6 +30,7 @@ const { handleSubmit } = useForm({
 const nome = useField("nome");
 const sobrenome = useField("sobrenome");
 const matricula = useField("matricula");
+const cartao = useField("cartao");
 const curso = useField("curso");
 const ambiente = useField("ambiente");
 const imagen = useField("imagen");
@@ -74,6 +75,12 @@ const submit = handleSubmit(async (values) => {
         label="Matrícula"
         v-model="matricula.value.value"
         :error-messages="matricula.errorMessage.value"
+      />
+       <v-text-field
+        class="mb-5"
+        label="Cartão"
+        v-model="cartao.value.value"
+        :error-messages="cartao.errorMessage.value"
       />
       <v-row>
         <v-col>

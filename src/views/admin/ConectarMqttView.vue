@@ -1,12 +1,11 @@
 <script setup>
-import { ref, computed, onUnmounted } from "vue";
+import { ref, computed, onUnmounted, watch } from "vue";
 import mqtt from "mqtt"; // Certifique-se de instalar: npm install mqtt
 
 // Estados
 const isConnected = ref(false);
 const connecting = ref(false);
 const client = ref(null);
-const topic = ref("vue3/test/topic");
 const message = ref("");
 const messages = ref([]);
 const logs = ref([]);
@@ -33,6 +32,19 @@ const brokers = ref([
 
 // Broker selecionado
 const selectedBroker = ref(brokers.value[1]); // começa com o "wss" do Mosquitto
+
+// 🔹 Lista de tópicos disponíveis
+const availableTopics = ref([
+  "ifrs/sala/001",
+  "ifrs/sala/002",
+  "ifrs/sala/POAlab",
+  "ifrs/sala/RobotIF",
+  "ifrs/sala/1003",
+  "ifrs/sala/1004",
+]);
+
+// 🔹 Tópico selecionado
+const topic = ref(availableTopics.value[0]);
 
 // Computed: texto e estilo do status
 const statusText = computed(() => {
@@ -70,8 +82,16 @@ const connect = () => {
       isConnected.value = true;
       connecting.value = false;
       addLog("✅ Conectado com sucesso!");
-      client.value.subscribe(topic.value, (err) => {
-        if (!err) addLog(`📌 Inscrito no tópico: ${topic.value}`);
+
+      // Inscreve-se no tópico escolhido
+      //client.value.subscribe(topic.value, (err) => {
+      //  if (!err) addLog(`📌 Inscrito no tópico: ${topic.value}`);
+      //});
+
+      // 🔹 Inscreve-se em TODOS os tópicos das salas
+      const allRoomsTopic = "ifrs/sala/#";
+      client.value.subscribe(allRoomsTopic, (err) => {
+        if (!err) addLog(`📌 Inscrito em todas as salas (${allRoomsTopic})`);
       });
     });
 
@@ -134,6 +154,18 @@ const changeBroker = () => {
   addLog(`Broker alterado para: ${selectedBroker.value.name}`);
 };
 
+// Quando o usúario troca de tópico
+watch(topic, (newTopic, oldTopic) => {
+  if (isConnected.value && client.value) {
+    client.value.unsubscribe(oldTopic, () => {
+      addLog(`🚫 Cancelada inscrição em ${oldTopic}`);
+      client.value.subscribe(newTopic, (err) => {
+        if (!err) addLog(`📌 Nova inscrição em ${newTopic}`);
+      });
+    });
+  }
+});
+
 // Limpeza automática ao sair
 onUnmounted(() => {
   disconnect();
@@ -184,12 +216,15 @@ onUnmounted(() => {
     <v-card class="pa-4 mb-4" v-if="isConnected">
       <h3 class="text-h6 mb-3">Publicar mensagem</h3>
 
-      <v-text-field
+      <!-- Escolher o tópico -->
+      <v-select
         label="Tópico"
+        :items="availableTopics"
         v-model="topic"
         outlined
         dense
-      ></v-text-field>
+        class="mb-3"
+      ></v-select>
 
       <v-text-field
         label="Mensagem"

@@ -24,10 +24,10 @@ const mqttStore = useMqttStore();
       >
         {{
           mqttStore.connecting
-            ? "🔄 Conectando..."
+            ? "Conectando..."
             : mqttStore.isConnected
-            ? "✅ Conectado"
-            : "❌ Desconectado"
+            ? "Conectado"
+            : "Desconectado"
         }}
       </v-alert>
 

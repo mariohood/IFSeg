@@ -15,7 +15,14 @@ const cursos = [
   "Técnico em Contabilidade",
   "Funcionario",
 ];
-const locais = ["POALab", "Lab Robótica"];
+const locais = [
+  "001",
+  "002",
+  "POAlab",
+  "RobotIF",
+  "1003",
+  "1004",
+];
 
 const { url, uploadImage, image } = useImage();
 
@@ -25,7 +32,7 @@ const nome = useField("nome");
 const sobrenome = useField("sobrenome");
 const matricula = useField("matricula");
 const curso = useField("curso");
-const cartao = useField("cartao");
+const tag = useField("tag");
 const ambiente = useField("ambiente");
 const imagen = useField("imagen");
 const descricao = useField("descricao");
@@ -42,7 +49,7 @@ watch(usuario, (usuario) => {
   nome.value.value = usuario.nome;
   sobrenome.value.value = usuario.sobrenome;
   matricula.value.value = usuario.matricula;
-  cartao.value.value = usuario.cartao;
+  tag.value.value = usuario.tag;
   curso.value.value = usuario.curso;
   ambiente.value.value = usuario.ambiente;
   descricao.value.value = usuario.descricao;
@@ -94,9 +101,9 @@ const submit = handleSubmit(async values => {
       />
       <v-text-field
         class="mb-5"
-        label="Cartão"
-        v-model="cartao.value.value"
-        :error-messages="cartao.errorMessage.value"
+        label="Código da Tag"
+        v-model="tag.value.value"
+        :error-messages="tag.errorMessage.value"
       />
       <v-row>
         <v-col>

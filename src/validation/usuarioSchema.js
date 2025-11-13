@@ -16,9 +16,9 @@ export const validationSchema = {
     if (/^[0-9]+$/.test(value)) return true;
     return "A matricula só podem ser números";
   },
-  cartao(value) {
+  tag(value) {
     if (value) return true;
-    return "Agrega o número do cartão";
+    return "Agrega o código da Tag";
   },
   curso(value) {
     if (value) return true;

@@ -13,7 +13,7 @@ const cursos = [
   "Técnico em Contabilidade",
   "Funcionario",
 ];
-const locais = ["POALab", "Lab Robótica"];
+const locais = ["001", "002", "POAlab", "RobotIF", "1003", "1004"];
 
 const { url, uploadImage, image } = useImage();
 
@@ -30,7 +30,7 @@ const { handleSubmit } = useForm({
 const nome = useField("nome");
 const sobrenome = useField("sobrenome");
 const matricula = useField("matricula");
-const cartao = useField("cartao");
+const tag = useField("tag");
 const curso = useField("curso");
 const ambiente = useField("ambiente");
 const imagen = useField("imagen");
@@ -76,11 +76,11 @@ const submit = handleSubmit(async (values) => {
         v-model="matricula.value.value"
         :error-messages="matricula.errorMessage.value"
       />
-       <v-text-field
+      <v-text-field
         class="mb-5"
-        label="Cartão"
-        v-model="cartao.value.value"
-        :error-messages="cartao.errorMessage.value"
+        label="Código da Tag"
+        v-model="tag.value.value"
+        :error-messages="tag.errorMessage.value"
       />
       <v-row>
         <v-col>

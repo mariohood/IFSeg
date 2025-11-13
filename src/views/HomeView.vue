@@ -6,13 +6,13 @@ const { usuariosCollection } = useUsuarios();
 </script>
 
 <template>
-  <h1 class="text-center text-h3 font-weight-bold my-5">Nossos usuários</h1>
+  <h1 class="text-center text-h3 font-weight-bold my-5">Nossos usúarios</h1>
 
   <v-card flat class="py-10">
     <v-row>
-      <usuario
+      <Usuario
         v-for="usuario in usuariosCollection"
-        :key="usuariosCollection.id"
+        :key="usuario.id"
         :usuario="usuario"
       />
     </v-row>

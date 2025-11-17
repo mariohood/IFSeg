@@ -22,13 +22,7 @@ const mqttStore = useMqttStore();
         dense
         class="mb-4"
       >
-        {{
-          mqttStore.connecting
-            ? "Conectando..."
-            : mqttStore.isConnected
-            ? "Conectado"
-            : "Desconectado"
-        }}
+        {{ mqttStore.connect ing ? "Conectando..." : mqttStore.isConnected ? "Conectado" : "Desconectado" }}
       </v-alert>
 
       <!-- Seleção de Broker -->
@@ -104,9 +98,7 @@ const mqttStore = useMqttStore();
       <v-list max-height="200" class="overflow-y-auto">
         <v-list-item v-for="(log, i) in mqttStore.logs" :key="i">
           <v-list-item-content>
-            <v-list-item-subtitle class="font-mono text-caption">{{
-              log
-            }}</v-list-item-subtitle>
+            <v-list-item-subtitle class="font-mono text-caption">{{ log }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>

@@ -169,7 +169,7 @@ export const useMqttStore = defineStore("mqtt", () => {
           tag,
           ambiente,
           usuario: `${user.nome} ${user.sobrenome}`,
-          horario: serverTimestamp(),
+          dataHora: serverTimestamp(),
           status: "autorizado",
         });
 
@@ -177,11 +177,12 @@ export const useMqttStore = defineStore("mqtt", () => {
         publish("1", `ifrs/sala/${ambiente}/resposta`);
       } else {
         console.warn("🚫 Tag não autorizada!");
+
         await push(dbRef(rtdb, "logs"), {
           tag,
           ambiente,
           usuario: "desconhecido",
-          horario: serverTimestamp(),
+          dataHora: serverTimestamp(),
           status: "negado",
         });
 

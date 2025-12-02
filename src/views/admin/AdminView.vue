@@ -32,7 +32,11 @@ const { usuariosCollection, deleteUsuario } = useUsuarios();
             Editar
           </v-btn>
 
-          <v-btn color="red-darken-3" flat @click="deleteUsuario(usuario.id)">
+          <v-btn
+            color="red-darken-3"
+            flat
+            @click="deleteUsuario(usuario.id, usuario.image)"
+          >
             Excluir
           </v-btn>
         </template>

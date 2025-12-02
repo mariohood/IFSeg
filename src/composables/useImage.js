@@ -5,7 +5,7 @@ import { uid } from "uid";
 
 export default function useImage() {
   const storage = useFirebaseStorage();
-  const storageRefPath = storageRef(storage, `/usuarios/${uid()}`);
+  const storageRefPath = storageRef(storage, `/usuarios/${uid()}.jpg`);
 
   const { url, upload } = useStorageFile(storageRefPath);
 

@@ -1,7 +1,7 @@
 <script setup>
 import useUsuarios from "@/composables/useUsuarios";
 
-const { usuariosCollection } = useUsuarios();
+const { usuariosCollection, deleteUsuario } = useUsuarios();
 </script>
 
 <template>
@@ -31,7 +31,10 @@ const { usuariosCollection } = useUsuarios();
           >
             Editar
           </v-btn>
-          <v-btn color="red-darken-3" flat> Excluir </v-btn>
+
+          <v-btn color="red-darken-3" flat @click="deleteUsuario(usuario.id)">
+            Excluir
+          </v-btn>
         </template>
       </v-list-item>
     </v-list>

@@ -94,6 +94,8 @@ export const useMqttStore = defineStore("mqtt", () => {
 
       // Recebe mensagens
       client.value.on("message", async (topicName, payload) => {
+        if (topicName.endsWith("/resposta")) return; // Ignora mensagens de resposta
+
         const msg = payload.toString();
         const newMsg = {
           topic: topicName,
@@ -104,11 +106,10 @@ export const useMqttStore = defineStore("mqtt", () => {
         addLog(`📥 Mensagem recebida: ${topicName}`);
 
         // 🔍 Verifica se é um tópico de sala e valida a tag
-        const match = topicName.match(/^ifrs\/sala\/(.+)$/);
-        if (match) {
-          const ambiente = match[1];
-          await validarTagComFirestore(msg, ambiente);
-        }
+        const match = topicName.match(/^ifrs\/sala\/([^/]+)$/);
+        if (!match) return;
+        const ambiente = match[1];
+        await validarTagComFirestore(msg, ambiente);
       });
 
       // Erros de conexão
@@ -169,7 +170,7 @@ export const useMqttStore = defineStore("mqtt", () => {
           tag,
           ambiente,
           usuario: `${user.nome} ${user.sobrenome}`,
-          dataHora: serverTimestamp(),
+          dataHora: Date.now(),
           status: "autorizado",
         });
 
@@ -182,7 +183,7 @@ export const useMqttStore = defineStore("mqtt", () => {
           tag,
           ambiente,
           usuario: "desconhecido",
-          dataHora: serverTimestamp(),
+          dataHora: Date.now(),
           status: "negado",
         });
 

@@ -29,8 +29,8 @@ watch(usuario, (u) => {
       .filter((log) => log.tag === tag) // só logs da Tag deste usuário
       .map((log) => ({
         ...log,
-        dataHoraFormatada: log.horario
-          ? new Date(log.horario).toLocaleString("pt-BR")
+        dataHoraFormatada: log.dataHora
+          ? new Date(log.dataHora).toLocaleString("pt-BR")
           : "-",
       }))
       .reverse(); //ordem: mais recente primeiro
@@ -72,27 +72,44 @@ watch(usuario, (u) => {
           <h2 class="text-h5 mb-3">Histórico de Acessos</h2>
 
           <v-list v-if="logsUsuario.length">
-            <v-list-item
-              v-for="(log, i) in logsUsuario"
-              :key="i"
-              :class="
-                log.status === 'autorizado'
-                  ? 'bg-green-lighten-5'
-                  : 'bg-red-lighten-5'
-              "
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  <strong>{{ log.status.toUpperCase() }}</strong>
-                  — Sala {{ log.ambiente }}
-                </v-list-item-title>
+            <template v-for="(log, i) in logsUsuario" :key="i">
+              <v-list-item
+                :class="
+                  log.status === 'autorizado'
+                    ? 'bg-green-lighten-5'
+                    : 'bg-red-lighten-5'
+                "
+              >
+                <v-list-item-content>
+                  <v-row align="center" no-gutters>
+                    <!-- Coluna 1: Status + Sala -->
+                    <v-col cols="12" md="4">
+                      <v-list-item-title
+                        :class="
+                          log.status === 'autorizado'
+                            ? 'text-green-darken-2'
+                            : 'text-red-darken-2'
+                        "
+                      >
+                        <strong>{{ log.status.toUpperCase() }}</strong>
+                        — Sala {{ log.ambiente }}
+                      </v-list-item-title>
+                    </v-col>
 
-                <v-list-item-subtitle>
-                  <strong>Data:</strong> {{ log.dataHoraFormatada }} |
-                  <strong>Tag:</strong> {{ log.tag }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
+                    <!-- Coluna 2: Data/Hora (centralizada) -->
+                    <v-col cols="12" md="4" class="text-center text-body-2">
+                      {{ log.dataHoraFormatada }}
+                    </v-col>
+
+                    <!-- Coluna 3: Tag (direita) -->
+                    <v-col cols="12" md="4" class="text-md-right text-caption">
+                      <strong>Tag:</strong> {{ log.tag }}
+                    </v-col>
+                  </v-row>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider v-if="i < logsUsuario.length - 1" class="my-1" />
+            </template>
           </v-list>
 
           <div v-else class="text-grey text-center py-5">

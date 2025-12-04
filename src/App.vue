@@ -1,8 +1,9 @@
 <script setup>
-import { RouterView } from "vue-router";
+import { RouterView, RouterLink } from "vue-router";
 import { useAuthStore } from "./stores/auth";
 import { useMqttStore } from "@/stores/mqttStore";
 import { computed } from "vue";
+import logo from "@/assets/IFSeg_logo.png";
 
 const auth = useAuthStore();
 const mqttStore = useMqttStore();
@@ -40,10 +41,19 @@ const handleMqttClick = () => {
 <template>
   <v-card elevation="3" max-width="1200" class="mx-auto">
     <v-layout>
-      <v-app-bar color="green-darken-2">
-        <template v-slot:prepend>
-          <v-btn :to="{ name: 'home' }"> IFSeg - TCC2 </v-btn>
+      <v-app-bar color="green-darken-2" height="120" density="comfortable">
+        <!-- ESQUERDA (LOGO – sem fundo/hover) -->
+        <template #prepend>
+          <v-container class="d-flex align-center pa-2" style="width: 350px">
+            <RouterLink :to="{ name: 'home' }">
+              <v-img :src="logo" width="110" height="110" contain />
+            </RouterLink>
+          </v-container>
         </template>
+        <!-- TEXTO CENTRAL -->
+        <v-app-bar-title class="text-center text-h4 font-weight-bold">
+          IFSeg — Controle de Acesso
+        </v-app-bar-title>
 
         <template v-slot:append>
           <div v-if="auth.isAuth" class="d-flex aling-center gap-2">

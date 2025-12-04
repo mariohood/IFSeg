@@ -41,7 +41,7 @@ const handleMqttClick = () => {
 <template>
   <v-card elevation="3" max-width="1200" class="mx-auto">
     <v-layout>
-      <v-app-bar color="green-darken-2" height="120" density="comfortable">
+      <v-app-bar color="green-darken-4" height="120" density="comfortable">
         <!-- ESQUERDA (LOGO – sem fundo/hover) -->
         <template #prepend>
           <v-container class="d-flex align-center pa-2" style="width: 350px">

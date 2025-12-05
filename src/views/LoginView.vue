@@ -16,7 +16,7 @@ const submit = handleSubmit((values) => {
 
 <template>
   <v-card flat max-width="600" class="mx-auto my-10">
-    <v-card-title class="text-h4 font-weight-bold" tag="h3">
+    <v-card-title class="text-h4 text-center font-weight-bold" tag="h3">
       Iniciar Sessão
     </v-card-title>
     <v-card-subtitle class="text-h5">

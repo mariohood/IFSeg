@@ -1,15 +1,27 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCurrentUser } from "vuefire";
 import useUsuarios from "../composables/useUsuarios";
 import Usuario from "../components/Usuario.vue";
 
 const router = useRouter();
 const { usuariosCollection } = useUsuarios();
 
-// sala selecionada no v-select
+// Verificar o login
+const user = useCurrentUser();
+const isLogged = computed(() => !!user.value);
+
+// Sala selecionada no v-select
 const salaFiltro = ref(null);
 const salaSelecionada = ref(null);
+
+// Funcao para bloquear acesso vai para o login
+function checarLogin() {
+  if (!isLogged.value) {
+    router.push({ name: "login" });
+  }
+}
 
 function irParaSala(sala) {
   if (!sala) return;
@@ -20,7 +32,7 @@ function irParaSala(sala) {
   });
 }
 
-// lista de salas (pode vir fixa ou dinâmica)
+// lista de salas
 const salas = computed(() => {
   return [...new Set(usuariosCollection.value.map((u) => u.ambiente))];
 });
@@ -47,6 +59,8 @@ const usuariosFiltrados = computed(() => {
         clearable
         variant="outlined"
         density="comfortable"
+        :disabled="!isLogged"
+        @mousedown.prevent="!isLogged && checarLogin()"
       />
     </v-col>
 
@@ -59,6 +73,8 @@ const usuariosFiltrados = computed(() => {
         clearable
         variant="outlined"
         density="comfortable"
+        :disabled="!isLogged"
+        @mousedown.prevent="!isLogged && checarLogin()"
         @update:model-value="irParaSala"
       />
     </v-col>

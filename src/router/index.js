@@ -48,6 +48,12 @@ const router = createRouter({
           component: () => import("../views/admin/ConectarMqttView.vue"),
           meta: { requiresAuth: true },
         },
+        {
+          path: "/admin/salas/:sala",
+          name: "admin-sala",
+          component: () => import("../views/admin/SalaView.vue"),
+          meta: { requiresAuth: true },
+        },
       ],
     },
   ],

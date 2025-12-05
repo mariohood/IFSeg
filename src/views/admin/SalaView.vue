@@ -90,4 +90,7 @@ onMounted(() => {
 .text-red {
   color: #e74c3c;
 }
+thead th {
+  font-weight: bold !important;
+}
 </style>

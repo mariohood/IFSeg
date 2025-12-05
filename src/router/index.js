@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { getCurrentUser } from "vuefire";
 import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
@@ -57,6 +58,15 @@ const router = createRouter({
       ],
     },
   ],
+});
+
+router.beforeEach(async (to) => {
+  if (to.name === "usuario") {
+    const user = await getCurrentUser();
+    if (!user) {
+      return { name: "login" };
+    }
+  }
 });
 
 export default router;
